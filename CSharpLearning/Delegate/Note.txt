@@ -1,0 +1,3 @@
+use multicast Delegate
+use combination in Delegates
+	==> * use Lambda Delegate
