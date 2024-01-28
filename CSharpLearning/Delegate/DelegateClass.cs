@@ -113,4 +113,48 @@ namespace Delegate
 
         #endregion
     }
+
+    public class GenericDelegate
+    {
+        #region Properties
+        private int _value { get; set; }
+        private delegate T MyDelegate<T>(T item);
+        private MyDelegate<int> _delegate { get; set; }
+        #endregion
+
+        #region Methods
+        public GenericDelegate(int value)
+        {
+            _value = value;
+            _delegate += Square;
+            _delegate += Cube;
+        }
+
+        private int Square(int x)
+        {
+            return x * x;
+        }
+
+        private int Cube(int x)
+        {
+            return x * x * x;
+        }
+
+        public void CallGenericDelegate()
+        {
+            var invokeResult = _delegate.GetInvocationList().Select(r => (int)r.DynamicInvoke(_value));
+            string result = "CallGenericDelegate : ";
+            foreach (var item in invokeResult)
+            {
+                result += $"/{item}/";
+            }
+
+            Console.WriteLine(result);
+        }
+        #endregion
+
+
+    }
+
+
 }
